@@ -71,27 +71,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             ViewHolder viewHolder = null;
-            if (i == 0) {
+            if (view == null) {
                 view = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_list, null);
                 viewHolder = new ViewHolder();
                 viewHolder.tv = (TextView) view.findViewById(R.id.tv);
-                viewHolder.tv.setBackground(getDrawable(R.drawable.selector_0));
+                view.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) view.getTag();
+            }
+            if (i == 0) {
+                viewHolder.tv.setBackground(getDrawable(R.drawable.selector_choice_start));
                 view.setTag(viewHolder);
             } else if (i == list.size() - 1) {
-                view = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_list, null);
-                viewHolder = new ViewHolder();
-                viewHolder.tv = (TextView) view.findViewById(R.id.tv);
-                viewHolder.tv.setBackground(getDrawable(R.drawable.selector_end));
-            } else {
-
-                if (view == null) {
-                    view = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_list, null);
-                    viewHolder = new ViewHolder();
-                    viewHolder.tv = (TextView) view.findViewById(R.id.tv);
-                    view.setTag(viewHolder);
-                } else {
-                    viewHolder = (ViewHolder) view.getTag();
-                }
+                viewHolder.tv.setBackground(getDrawable(R.drawable.selector_choice_end));
+            }else{
+                viewHolder.tv.setBackground(getDrawable(R.drawable.selector_choice_normal));
             }
             viewHolder.tv.setText(list.get(i));
             return view;
